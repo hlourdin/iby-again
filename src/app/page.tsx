@@ -18,9 +18,9 @@ export default function Home() {
         const querySnapshot = await getDocs(collectionRef);
         console.log('Query executed successfully');
         setConnectionStatus(`✅ Connected to Firebase! Found ${querySnapshot.size} documents.`);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Detailed Firebase error:', error);
-        setConnectionStatus(`❌ Connection failed: ${error.message}`);
+        setConnectionStatus(`❌ Connection failed: ${error?.message || 'Unknown error'}`);
       }
     }
 

@@ -61,11 +61,11 @@ export default function SubmitBeverage() {
         router.push('/');
       }, 1500);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Detailed submission error:', error);
       setSubmitStatus({
         type: 'error',
-        message: error instanceof Error ? error.message : 'Failed to add beverage. Please try again.'
+        message: error?.message || 'Failed to add beverage. Please try again.'
       });
     }
   };
