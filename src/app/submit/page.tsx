@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, FirestoreError } from 'firebase/firestore';
 import type { Beverage } from '@/types/beverage';
 import { useRouter } from 'next/navigation';
 
@@ -61,11 +61,14 @@ export default function SubmitBeverage() {
         router.push('/');
       }, 1500);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Detailed submission error:', error);
+      const errorMessage = error instanceof FirestoreError 
+        ? error.message 
+        : 'An unexpected error occurred';
       setSubmitStatus({
         type: 'error',
-        message: error?.message || 'Failed to add beverage. Please try again.'
+        message: errorMessage
       });
     }
   };

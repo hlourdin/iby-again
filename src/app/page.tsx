@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, FirestoreError } from 'firebase/firestore';
 import Image from "next/image";
 import Link from 'next/link';
 
@@ -18,9 +18,12 @@ export default function Home() {
         const querySnapshot = await getDocs(collectionRef);
         console.log('Query executed successfully');
         setConnectionStatus(`✅ Connected to Firebase! Found ${querySnapshot.size} documents.`);
-      } catch (error: any) {
+      } catch (error) {
         console.error('Detailed Firebase error:', error);
-        setConnectionStatus(`❌ Connection failed: ${error?.message || 'Unknown error'}`);
+        const errorMessage = error instanceof FirestoreError 
+          ? error.message 
+          : 'An unexpected error occurred';
+        setConnectionStatus(`❌ Connection failed: ${errorMessage}`);
       }
     }
 
