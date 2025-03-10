@@ -1,6 +1,32 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { db } from '@/lib/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import Image from "next/image";
+import Link from 'next/link';
 
 export default function Home() {
+  const [connectionStatus, setConnectionStatus] = useState<string>('Testing connection...');
+
+  useEffect(() => {
+    async function testConnection() {
+      try {
+        console.log('Testing Firebase connection...');
+        const collectionRef = collection(db, 'owed-bevarages');
+        console.log('Collection reference created');
+        const querySnapshot = await getDocs(collectionRef);
+        console.log('Query executed successfully');
+        setConnectionStatus(`✅ Connected to Firebase! Found ${querySnapshot.size} documents.`);
+      } catch (error) {
+        console.error('Detailed Firebase error:', error);
+        setConnectionStatus(`❌ Connection failed: ${error.message}`);
+      }
+    }
+
+    testConnection();
+  }, []);
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -47,6 +73,19 @@ export default function Home() {
           >
             Read our docs
           </a>
+        </div>
+
+        <div className="flex flex-col items-center gap-4">
+          <Link
+            href="/submit"
+            className="bg-blue-600 text-white py-2 px-6 rounded-full hover:bg-blue-700 transition-colors"
+          >
+            Submit New Beverage
+          </Link>
+          
+          <div className="p-4 rounded-lg bg-white/10">
+            <p className="text-lg">{connectionStatus}</p>
+          </div>
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
