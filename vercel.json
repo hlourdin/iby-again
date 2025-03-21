@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "buildCommand": "next build",
+  "devCommand": "next dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_FIREBASE_API_KEY": "AIzaSyA_dgK2P4cSoTpixhwbEddK98-XZZC2R5M",
+    "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN": "ibybac.firebaseapp.com",
+    "NEXT_PUBLIC_FIREBASE_PROJECT_ID": "ibybac",
+    "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET": "ibybac.firebasestorage.app",
+    "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "707090040878",
+    "NEXT_PUBLIC_FIREBASE_APP_ID": "1:707090040878:web:c8134afb412037ef3977bf"
+  }
+} 

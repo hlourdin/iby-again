@@ -1,3 +1,8 @@
+export interface BeverageType {
+  id: string;
+  name: string;
+}
+
 export interface Beverage {
   id?: string;
   owedBy: string;
